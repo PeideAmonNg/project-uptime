@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import Auth from './Auth';
+  import Auth from '../Auth';
   export let id;
   let name = '';
   let username = '';
@@ -9,7 +9,7 @@
   let days = {};
 
   onMount(async () => {    
-    console.log('fetching apikey')
+    console.log('fetching apikey');
     let apiKey = Auth.getApiKey();
     console.log('apikey', apiKey)
     isFetchingUser = true;

@@ -1,5 +1,5 @@
 /node_modules/
-/public/build/
+/frontend/public/build/
 .DS_Store
 .env
 .env.local

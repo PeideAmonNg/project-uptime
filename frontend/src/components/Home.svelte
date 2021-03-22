@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { writable } from 'svelte/store';
-  import Auth from './Auth';
+  import Auth from '../Auth';
 
   let users = [];
   let isFetchingUsers = true;
@@ -59,7 +59,7 @@
   <table>
   {#each users as user}
     <tr>
-      <td><a href="/users/{user.id}">{user.username}</a></td>
+      <td><a href="/users/{user.id}">{user.id}</a></td>
     </tr>
   {/each}
   </table>

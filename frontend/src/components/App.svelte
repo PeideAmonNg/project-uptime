@@ -3,7 +3,7 @@
   import User from './User.svelte';
   import Users from './Home.svelte';
   import UserStatus from './UserStatus.svelte';
-  import Auth from './Auth';
+  import Auth from '../Auth';
   Auth.getApiKey();
 </script>
 <head>

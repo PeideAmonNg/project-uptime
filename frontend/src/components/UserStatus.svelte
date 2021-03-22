@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import Auth from './Auth';
+  import Auth from '../Auth';
   export let isFetchingUserStatuses = true;
   let userStatuses = [];
   let lastUpdated = '';
@@ -68,7 +68,7 @@
       <tr><td class="daymonth">{getDayMonth(us.createdAt)}</td></tr>
     {/if}
     <tr>
-      <td class="time">{formatDate(us.createdAt)}</td><td><a href="/users/{us.userid}">{us.username}</a></td>
+      <td class="time">{formatDate(us.createdAt)}</td><td><a href="/users/{us.userid}">{us.userid}</a></td>
       {#if isOnline(us.createdAt)}
         <td><span class="online"></span></td>
       {/if}
