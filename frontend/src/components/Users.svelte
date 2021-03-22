@@ -47,7 +47,7 @@
 
 <main>
   <form on:submit|preventDefault={handleOnSubmit} style="text-align: left;">
-    <b>New User</b>
+    <h3>New User</h3>
     <br>
     <input name="username" bind:value={$user.username} placeholder="Enter username"><br>
     <input name="name" bind:value={$user.name} placeholder="Enter name"><br>
@@ -55,7 +55,7 @@
   </form>
   <br>
   <hr>
-  <b>Users ({users.length})</b>
+  <h3>Users ({users.length})</h3>
   <table>
   {#each users as user}
     <tr>

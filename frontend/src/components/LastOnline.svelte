@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import { Link } from "svelte-routing";
   import Auth from '../Auth';
   export let isFetchingUserStatuses = true;
   let userStatuses = [];
@@ -50,7 +51,7 @@
   }
 </script>
 <main>
-  <b>Last Online</b>
+  <h3>Last Online</h3>
   <table>
     <tr><td>Time now:</td><td>{new Date().toLocaleString('en-NZ')}</td></tr>
     <tr>
@@ -68,7 +69,7 @@
       <tr><td class="daymonth">{getDayMonth(us.createdAt)}</td></tr>
     {/if}
     <tr>
-      <td class="time">{formatDate(us.createdAt)}</td><td><a href="/users/{us.userid}">{us.userid}</a></td>
+      <td class="time">{formatDate(us.createdAt)}</td><td><Link to="/users/{us.userid}">{us.userid}</Link></td>
       {#if isOnline(us.createdAt)}
         <td><span class="online"></span></td>
       {/if}
