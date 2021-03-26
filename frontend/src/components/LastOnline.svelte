@@ -65,12 +65,12 @@
   {/if}
   <table>
   {#each userStatuses as us}
-    {#if !sameDayMonthAsPrevious(us.createdAt)}
-      <tr><td class="daymonth">{getDayMonth(us.createdAt)}</td></tr>
+    {#if !sameDayMonthAsPrevious(us.createdat)}
+      <tr><td class="daymonth">{getDayMonth(us.createdat)}</td></tr>
     {/if}
     <tr>
-      <td class="time">{formatDate(us.createdAt)}</td><td><Link to="/users/{us.userid}">{us.userid}</Link></td>
-      {#if isOnline(us.createdAt)}
+      <td class="time">{formatDate(us.createdat)}</td><td><Link to="/users/{us.userid}">{us.userid}</Link></td>
+      {#if isOnline(us.createdat)}
         <td><span class="online"></span></td>
       {/if}
     </tr>
