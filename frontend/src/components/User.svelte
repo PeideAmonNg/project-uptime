@@ -41,7 +41,7 @@
   }
 
   function getDayMonth(date) {
-    let d = new Date(date);
+    let d = new Date(parseInt(date));
     let dayMonth = `${d.getDate()}/${d.getMonth() + 1}`;
     return dayMonth;  
   }
@@ -77,8 +77,8 @@
     <p>{name}</p>
   {/if}
   <table>
-  {#each Object.keys(days) as day}
-    <tr><td>{day.split('/').slice(0, 2).join('/')}</td>
+  {#each Object.keys(days).sort().reverse() as day}
+    <tr><td>{getDayMonth(day)}</td>
       {#each Object.keys(days[day].hours).sort() as hour}
         <td>
           <span 
