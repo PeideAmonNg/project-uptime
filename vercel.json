@@ -2,8 +2,6 @@
   "name": "uptime",
   "version": 2,
   "rewrites": [
-    { "source": "/api/users/:id", "destination": "/api/users" },
-    { "source": "/api/users/:id/", "destination": "/api/users" },
-    { "source": "/api/user-status/:id", "destination": "/api/user-status" }
+    { "source": "/(.*)", "destination": "/" }
   ]
 }
