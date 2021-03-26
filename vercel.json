@@ -1,7 +1,4 @@
 {
   "name": "uptime",
-  "version": 2,
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
-  ]
+  "version": 2
 }
