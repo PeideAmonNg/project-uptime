@@ -4,7 +4,6 @@
   export let id;
   let name = '';
   let username = '';
-  let userStatuses = [];
   let isFetchingUser = false;
   let days = {};
 
@@ -14,9 +13,8 @@
     console.log('apikey', apiKey)
     isFetchingUser = true;
     try {
-      const res = await fetch(`/api/user-status/${id}?api_key=${apiKey}`);
+      const res = await fetch(`https://ffscgzwcd4.execute-api.ap-southeast-2.amazonaws.com/prod/users?id=${id}&api_key=${apiKey}`);
       let o = await res.json();
-      userStatuses = o.userStatuses;
       name = o.name;
       username = o.username;
       days = o.userStatuses;
