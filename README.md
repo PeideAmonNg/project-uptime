@@ -19,3 +19,5 @@ $ npx degit sveltejs/template my-svelte-project
 ```
 
 This line added to trigger new deployment 2
+
+Trigger deployment on vercel
