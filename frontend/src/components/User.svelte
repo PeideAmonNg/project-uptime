@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import Auth from '../Auth';
+import App from "./App.svelte";
   export let id;
   let name = '';
   let username = '';
@@ -77,7 +78,7 @@
     <p>{name}</p>
   {/if}
   <table>
-  {#each Object.keys(days).sort().reverse() as day}
+  {#each Object.keys(days).reverse() as day}
     <tr><td>{getDayMonth(day)}</td>
       {#each Object.keys(days[day].hours).sort() as hour}
         <td>

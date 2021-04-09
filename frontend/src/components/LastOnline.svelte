@@ -11,7 +11,7 @@
       const res = await fetch(`https://ffscgzwcd4.execute-api.ap-southeast-2.amazonaws.com/prod/users-last-online?api_key=${apiKey}`);
       if(res.status == 200) { 
         let o = await res.json();
-        userStatuses = o.userStatuses;
+        userStatuses = o.userStatuses.sort((a, b) => a.createdat > b.createdat ? -1 : 1);
         lastUpdated = o.lastUpdated;
       }
       isFetchingUserStatuses = false;
@@ -20,7 +20,7 @@
     }
   });
 
-  function formatDate(date) {
+  function getHourMinute(date) {
     let d = new Date(date);
     return `${('0' + d.getHours()).slice(-2)}:${('0' + d.getMinutes()).slice(-2)}`;
   }
@@ -34,9 +34,9 @@
     return isSameDayMonth;
   }
 
-  function getDayMonth(date) {
+  function getDayMonthYear(date) {
     let d = new Date(date);
-    let dayMonth = `${('0' + d.getDate()).slice(-2)}/${('0' + d.getMonth() + 1).slice(-2)}`;
+    let dayMonth = `${('0' + d.getDate()).slice(-2)}/${('0' + (d.getMonth() + 1)).slice(-2)}/${d.getFullYear()}`;
     return dayMonth;  
   }
 
@@ -66,10 +66,10 @@
   <table>
   {#each userStatuses as us}
     {#if !sameDayMonthAsPrevious(us.createdat)}
-      <tr><td class="daymonth">{getDayMonth(us.createdat)}</td></tr>
+      <tr><td class="daymonth">{getDayMonthYear(us.createdat)}</td></tr>
     {/if}
     <tr>
-      <td class="time">{formatDate(us.createdat)}</td><td><Link to="/users/{us.userid}">{us.userid}</Link></td>
+      <td class="time">{getHourMinute(us.createdat)}</td><td><Link to="/users/{us.userid}">{us.username}</Link></td>
       {#if isOnline(us.createdat)}
         <td><span class="online"></span></td>
       {/if}
