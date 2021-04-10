@@ -1,7 +1,6 @@
 <script>
   import { onMount } from "svelte";
   import Auth from '../Auth';
-import App from "./App.svelte";
   export let id;
   let name = '';
   let username = '';
@@ -69,14 +68,8 @@ import App from "./App.svelte";
       <img src="/dual-ring.gif" alt="Loading.." width="20" height="20"><span>Fetching..</span>
     </div>
   {/if}
-  <b>
-    {#if username }
-      <p>{username}</p>
-    {/if}
-  </b>
-  {#if name }
-    <p>{name}</p>
-  {/if}
+  <b><p>{username}</p></b>
+  <p>{name || '<name placeholder>'}</p>
   <table>
   {#each Object.keys(days).reverse() as day}
     <tr><td>{getDayMonth(day)}</td>

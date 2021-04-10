@@ -10,10 +10,10 @@
   onMount(async () => {
      apikey = Auth.getApiKey();
 
-    const res = await fetch(`/api/users?api_key=${apikey}`);
+    const res = await fetch(`https://ffscgzwcd4.execute-api.ap-southeast-2.amazonaws.com/prod/users?api_key=${apikey}`);
     if(res.status == 200) {
       users = await res.json();
-      users.reverse();
+      users.sort((a, b) => a.id > b.id ? -1 : 1);
       console.log(users);
     }
     isFetchingUsers = false;
@@ -24,7 +24,7 @@
 
   async function handleOnSubmit() {
     console.log("Adding user", $user);
-    const res = await fetch(`/api/users?api_key=${apikey}`, {
+    const res = await fetch(`https://ffscgzwcd4.execute-api.ap-southeast-2.amazonaws.com/prod/users?api_key=${apikey}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -59,7 +59,7 @@
   <table>
   {#each users as user}
     <tr>
-      <td><a href="/users/{user.id}">{user.id}</a></td>
+      <td><a href="/users/{user.id}">{user.username}</a></td>
     </tr>
   {/each}
   </table>
