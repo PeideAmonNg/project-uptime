@@ -6,6 +6,8 @@
   let username = '';
   let isFetchingUser = false;
   let days = {};
+  let user = {};
+  let exlcudedAttributes = ['id', 'username', 'name'];
 
   onMount(async () => {    
     console.log('fetching apikey');
@@ -15,10 +17,11 @@
     try {
       const res = await fetch(`https://ffscgzwcd4.execute-api.ap-southeast-2.amazonaws.com/prod/users?id=${id}&api_key=${apiKey}`);
       let o = await res.json();
+      console.log(o)
       name = o.name;
       username = o.username;
       days = o.userStatuses;
-      console.log(o)
+      user = {...o};
     } catch (e) {
       console.log('Failed to fetch user status', e);
     }
@@ -60,7 +63,17 @@
 
     return hsl;
   }
+
+  function isImageLink(text) {
+  	text = typeof text == 'string' && text.toLowerCase();
+  	return text && 
+			(text.includes('http://') || text.includes('https://')) &&
+			(text.includes('.jpg') || text.includes('.jpeg') || text.includes('.png'));
+  }
 </script>
+
+<style>
+</style>
 
 <main>
   {#if isFetchingUser}
@@ -68,10 +81,19 @@
       <img src="/dual-ring.gif" alt="Loading.." width="20" height="20"><span>Fetching..</span>
     </div>
   {/if}
-  <b><p>{username}</p></b>
-  <p>{name || '<name placeholder>'}</p>
-  <table>
-  {#each Object.keys(days).reverse() as day}
+  <table style="width: 100%">
+  	<colgroup>
+       <col span="1" style="width: 10%;">
+       <col span="1" style="width: 90%;">
+    </colgroup>   
+    <!-- Put <thead>, <tbody>, and <tr>'s here! -->
+    <tbody>
+		
+	  	
+	  </tbody>
+  </table>
+
+  <!-- {#each Object.keys(days).reverse() as day}
     <tr><td>{getDayMonth(day)}</td>
       {#each Object.keys(days[day].hours).sort() as hour}
         <td>
@@ -89,6 +111,45 @@
         </td>
       {/each}
     </tr>
-  {/each}
+  {/each} -->
+
+<style>
+	.attributeName {
+		white-space: nowrap;
+		vertical-align: top;
+	}
+</style>
+<table>
+    <tbody>
+    	<tr>
+			<td class="attributeName">id</td>
+			<td>{user.id}</td>
+		</tr>
+		<tr>
+			<td class="attributeName">username</td>
+			<td>{user.username}</td>
+		</tr>
+		<tr>
+			<td class="attributeName">name</td>
+			<td>{user.name}</td>
+		</tr>
+		{#each Object.keys(user) as attributeName}
+	  		{#if !exlcudedAttributes.includes(attributeName) }
+		  		<tr>
+		  			<td class="attributeName">{attributeName}</td>
+		  			<td>
+		  				{#if attributeName == 'createdAt' || attributeName == 'updatedAt'}
+		  					{new Date(user[attributeName])}
+				  		{:else if isImageLink(user[attributeName])}
+				  			<a href="{user[attributeName]}" target="_blank">{user[attributeName]}</a>
+				  		{:else if typeof user[attributeName] == 'object'}
+				  			<pre style="margin-top: 0;">{JSON.stringify(user[attributeName], undefined, 2)}</pre>
+				  		{:else}
+				  			{user[attributeName]}
+				  		{/if}</td>
+		  		</tr>
+		  	{/if}
+	  	{/each}
+    </tbody>
 </table>
 </main>
